@@ -1,0 +1,247 @@
+<!-- ELDORADO NAVBAR (ES) — pegar en un bloque "HTML personalizado" de WordPress -->
+<style>
+  .eld-wrap{
+    --eld-dark:#0f3b4a;
+    --eld-teal:#00a2b4;
+    --eld-teal-hover:#008998;
+    --eld-teal-active:#087784;
+    --eld-text:#475569;
+    font-family:"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    position:sticky; top:0; z-index:9999;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .eld-wrap *, .eld-wrap *::before, .eld-wrap *::after{box-sizing:border-box}
+  .eld-wrap a{text-decoration:none}
+  .eld-wrap svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .eld-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+
+  /* ---------- Top bar ---------- */
+  .eld-top{background:var(--eld-dark);color:#e6f2f4;font-size:14px;height:52px}
+  .eld-top .eld-inner{height:100%}
+  .eld-top-left,.eld-top-center,.eld-top-right{display:flex;align-items:center;gap:10px;white-space:nowrap}
+  .eld-top-left{flex:1}
+  .eld-top-center{flex:1;justify-content:center}
+  .eld-top-right{flex:1;justify-content:flex-end;gap:28px}
+  .eld-badge{width:32px;height:32px;border-radius:50%;background:var(--eld-teal);color:#fff;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center}
+  .eld-top-brand{font-weight:700;letter-spacing:.04em;color:#fff}
+  .eld-top-sub{color:#9fc3cb}
+  .eld-top svg{color:var(--eld-teal);font-size:16px}
+  .eld-top-center strong{font-weight:600;color:#fff}
+  .eld-dot{width:5px;height:5px;border-radius:50%;background:var(--eld-teal);display:inline-block}
+  .eld-top-right a{color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:500}
+  .eld-top-right a:hover{color:#8fe3ee}
+  .eld-lang{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:500;cursor:pointer}
+  .eld-lang .eld-chev{color:#9fc3cb;font-size:12px}
+
+  /* ---------- Main bar ---------- */
+  .eld-main{background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid #f1f5f9;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .eld-main .eld-inner{padding-top:10px;padding-bottom:10px}
+  .eld-logo{display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.1;padding:4px 8px;border-radius:8px}
+  .eld-logo:focus-visible{outline:2px solid var(--eld-teal)}
+  .eld-logo img{display:block;height:110px;width:auto;max-width:none;margin:-10px 0}
+
+  .eld-nav{display:flex;align-items:center;gap:40px;font-size:17px;font-weight:500;color:var(--eld-text)}
+  .eld-nav a{color:inherit;position:relative;padding:4px 0;white-space:nowrap;transition:color .2s}
+  .eld-nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--eld-teal);transition:width .25s}
+  .eld-nav a:hover{color:var(--eld-teal)}
+  .eld-nav a:hover::after{width:100%}
+
+  .eld-actions{display:flex;align-items:center;gap:22px}
+  .eld-cta{display:inline-flex;align-items:center;gap:10px;background:var(--eld-teal);color:#fff!important;font-size:17px;font-weight:600;padding:14px 26px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.08);white-space:nowrap;transition:background .2s,box-shadow .2s}
+  .eld-cta:hover{background:var(--eld-teal-hover);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .eld-cta:active{background:var(--eld-teal-active)}
+  .eld-cta svg{transition:transform .2s}
+  .eld-cta:hover svg{transform:translateX(3px)}
+
+  .eld-burger{display:none;background:none;border:0;color:#475569;padding:8px;border-radius:8px;cursor:pointer;font-size:26px}
+  .eld-burger:hover{background:#f1f5f9;color:var(--eld-teal)}
+  .eld-burger .eld-x{display:none}
+  .eld-wrap.is-open .eld-burger .eld-x{display:block}
+  .eld-wrap.is-open .eld-burger .eld-bars{display:none}
+
+  /* ---------- Mobile drawer ---------- */
+  .eld-drawer{display:none;background:#fff;border-top:1px solid #f1f5f9;padding:16px 24px 20px;box-shadow:0 10px 20px rgba(0,0,0,.08)}
+  .eld-wrap.is-open .eld-drawer{display:block}
+  .eld-drawer a.eld-dl{display:block;padding:12px 0;border-bottom:1px solid #f8fafc;font-size:16px;font-weight:500;color:#1e293b}
+  .eld-drawer a.eld-dl:hover{color:var(--eld-teal)}
+  .eld-drawer .eld-cta{width:100%;justify-content:center;margin-top:8px}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    .eld-nav{gap:26px;font-size:16px}
+    .eld-top-center{display:none}
+    .eld-top-left{flex:none}
+    .eld-top-right{flex:none}
+  }
+  @media (max-width:860px){
+    .eld-nav,.eld-actions .eld-cta{display:none}
+    .eld-burger{display:inline-flex}
+    .eld-inner{padding:0 16px}
+    .eld-top-sub{display:none}
+    .eld-logo img{height:68px;margin:-8px 0}
+    .eld-top{font-size:13px;height:46px}
+  }
+  @media (max-width:480px){
+    .eld-top-right .eld-phone-text{display:none}
+  }
+
+  /* ---------- Back to top (flecha flotante) ---------- */
+  .eld-btt{
+    /* Positioned just above the floating WhatsApp button (footer block: 70px at 30px).
+       Tweak these 2 values if your WhatsApp button sits somewhere else. */
+    --btt-right:41px; --btt-bottom:114px;
+    position:fixed; right:var(--btt-right); bottom:calc(var(--btt-bottom) + env(safe-area-inset-bottom,0px));
+    z-index:9997; width:48px; height:48px; border-radius:50%;
+    background:#00a2b4; color:#fff; border:0; padding:0; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+    opacity:0; visibility:hidden; transform:translateY(10px);
+    transition:opacity .25s, transform .25s, visibility .25s, background .2s;
+  }
+  .eld-btt.is-visible{opacity:1; visibility:visible; transform:none}
+  .eld-btt:hover{background:#008998}
+  .eld-btt:active{background:#087784}
+  .eld-btt:focus-visible{outline:3px solid #5be5f3; outline-offset:2px}
+  .eld-btt svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  @media (max-width:640px){
+    .eld-btt{--btt-right:23px; --btt-bottom:86px; width:44px; height:44px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .eld-btt{transition:none}
+  }
+
+  /* ---------- Top bar: icon + text style (announcement bar) ---------- */
+  .eld-top{font-size:17px;height:56px}
+  .eld-top-left{flex:1}
+  .eld-top-center{flex:none;display:flex!important;align-items:center;justify-content:center;gap:48px}
+  .eld-top-right{flex:1;justify-content:flex-end}
+  .eld-ti{display:inline-flex;align-items:center;gap:10px;color:#e6f2f4;font-weight:500;white-space:nowrap}
+  .eld-ti strong{color:#fff;font-weight:700}
+  .eld-top .eld-ti svg{width:26px;height:26px;color:#2fc4d6;stroke-width:1.8}
+
+  @media (max-width:1100px){
+    .eld-top-center{gap:28px}
+    .eld-top{font-size:15px}
+  }
+  @media (max-width:860px){
+    .eld-top{height:46px;font-size:13px}
+    .eld-top-left{display:none}
+    .eld-top-center{flex:1;justify-content:flex-start}
+    .eld-ti-2,.eld-ti-3{display:none}
+    .eld-top .eld-ti svg{width:20px;height:20px}
+  }
+</style>
+
+<header class="eld-wrap" id="eldNavbar">
+
+  <!-- Top info bar -->
+  <div class="eld-top">
+    <div class="eld-inner">
+      <div class="eld-top-left"></div>
+
+      <div class="eld-top-center">
+        <span class="eld-ti">
+          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Lloret de Mar &middot; Costa Brava</span>
+        </span>
+        <span class="eld-ti eld-ti-2">
+          <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Playa de Fenals</span>
+        </span>
+        <span class="eld-ti eld-ti-3">
+          <svg viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+          <strong>A 150 m del mar</strong>
+        </span>
+      </div>
+
+      <div class="eld-top-right">
+        <span class="eld-lang">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+          ES
+          <svg class="eld-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main navigation bar -->
+  <div class="eld-main">
+    <div class="eld-inner">
+
+      <a href="/" class="eld-logo" aria-label="Eldorado Apartments - inicio">
+        <img src="/wp-content/uploads/2026/11/Eldorado-Apartments-Logo-3.png" alt="Eldorado Apartments – Tu lugar para alojarte en Lloret" width="1282" height="1227">
+      </a>
+
+      <nav class="eld-nav" aria-label="Navegación principal">
+        <a href="#apartments">Apartamentos</a>
+        <a href="#experience">Experiencia</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#location">Ubicación</a>
+        <a href="#gallery">Galería</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+
+      <div class="eld-actions">
+        <a href="#book" class="eld-cta">
+          <span>Reserva tu estancia</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button type="button" class="eld-burger" id="eldBurger" aria-label="Abrir o cerrar el menú de navegación" aria-expanded="false">
+          <svg class="eld-bars" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="eld-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="eld-drawer">
+    <a class="eld-dl" href="#apartments">Apartamentos</a>
+    <a class="eld-dl" href="#experience">Experiencia</a>
+    <a class="eld-dl" href="#servicios">Servicios</a>
+    <a class="eld-dl" href="#location">Ubicación</a>
+    <a class="eld-dl" href="#gallery">Galería</a>
+    <a class="eld-dl" href="#contact">Contacto</a>
+    <a href="#book" class="eld-cta">
+      <span>Reserva tu estancia</span>
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- Flecha "Volver arriba" -->
+<button type="button" class="eld-btt" id="eldBtt" aria-label="Volver arriba" title="Volver arriba">
+  <svg viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<script>
+  (function () {
+    var wrap = document.getElementById('eldNavbar');
+    var burger = document.getElementById('eldBurger');
+    if (!wrap || !burger) return;
+    burger.addEventListener('click', function () {
+      var open = wrap.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    wrap.querySelectorAll('.eld-drawer a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        wrap.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  (function () {
+    var btn = document.getElementById('eldBtt');
+    if (!btn) return;
+    var SHOW_AFTER = 500; // px scrolled before the arrow appears
+    function toggle() { btn.classList.toggle('is-visible', (window.pageYOffset || document.documentElement.scrollTop) > SHOW_AFTER); }
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+    btn.addEventListener('click', function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  })();
+</script>

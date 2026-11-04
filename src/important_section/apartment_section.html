@@ -1,0 +1,648 @@
+<!-- ELDORADO APARTAMENTOS (ES) — pegar en un bloque "HTML personalizado" de WordPress -->
+<style>
+  .elda{
+    --a-dark:#0a3641;
+    --a-teal:#00a2b4;
+    --a-teal-hover:#008998;
+    --a-teal-active:#077986;
+    --a-tint:#e6f7f8;
+    font-family:"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:rgba(248,250,252,.7);
+    border-bottom:1px solid #e2e8f0;
+    padding:96px 0 80px;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .elda *,.elda *::before,.elda *::after{box-sizing:border-box}
+  .elda h2,.elda h3,.elda p{margin:0}
+  .elda a{text-decoration:none}
+  .elda button{font-family:inherit}
+  .elda svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .elda-sprite{position:absolute;width:0;height:0;overflow:hidden}
+  .elda-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+
+  /* ---------- Header ---------- */
+  .elda-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .elda-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a-teal);margin-bottom:8px}
+  .elda h2{font-family:Georgia,"Times New Roman",serif;font-size:48px;line-height:1.15;font-weight:400;letter-spacing:-.01em;color:var(--a-dark)}
+  .elda-intro{color:#475569;font-size:16px;line-height:1.6;margin-top:8px;max-width:576px}
+
+  .elda-tabs{display:flex;align-items:center;gap:6px;padding:4px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);max-width:100%;overflow-x:auto}
+  .elda-tab{padding:8px 14px;font-size:13px;font-weight:600;color:#475569;background:none;border:0;border-radius:10px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+  .elda-tab:hover{background:#f1f5f9;color:var(--a-dark)}
+  .elda-tab.is-active{background:var(--a-teal);color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+  .elda-tab:focus-visible{outline:2px solid var(--a-teal);outline-offset:2px}
+
+  /* ---------- Grid & cards ---------- */
+  .elda-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+  .elda-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);display:flex;flex-direction:column;transition:box-shadow .3s}
+  .elda-card:hover{box-shadow:0 20px 40px -12px rgba(0,0,0,.2)}
+  .elda-card[hidden]{display:none}
+  .elda-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#f1f5f9}
+  .elda-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+  .elda-card:hover .elda-media img{transform:scale(1.05)}
+  .elda-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 60%);opacity:.8;pointer-events:none}
+  .elda-badges{position:absolute;top:16px;left:16px;z-index:2;display:flex;gap:8px}
+  .elda-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#fff;padding:4px 10px;border-radius:8px;backdrop-filter:blur(8px)}
+  .elda-badge svg{font-size:12px}
+  .elda-badge-dark{background:rgba(10,54,65,.9)}
+  .elda-badge-teal{background:rgba(0,162,180,.9)}
+  .elda-price{position:absolute;bottom:16px;right:16px;z-index:2;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:6px 14px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.15);color:var(--a-dark);white-space:nowrap}
+  .elda-price small{font-size:12px;color:#64748b;font-weight:500}
+  .elda-price strong{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:18px;font-weight:700;color:var(--a-teal);font-variant-numeric:tabular-nums}
+
+  .elda-body{padding:24px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+  .elda-tag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--a-teal);margin-bottom:4px}
+  .elda h3{font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1.3;font-weight:400;color:var(--a-dark);transition:color .2s}
+  .elda-card:hover h3{color:var(--a-teal)}
+  .elda-desc{color:#475569;font-size:14px;line-height:1.65;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .elda-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px 0;margin:16px 0;border-top:1px solid #f1f5f9;border-bottom:1px solid #f1f5f9;font-size:12px;color:#475569}
+  .elda-spec{display:flex;align-items:center;gap:8px}
+  .elda-spec svg{color:var(--a-teal);font-size:16px}
+  .elda-spec strong{color:#1e293b}
+  .elda-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .elda-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--a-dark);background:var(--a-tint);padding:4px 10px;border-radius:8px}
+  .elda-chip svg{color:var(--a-teal);font-size:12px}
+
+  .elda-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px}
+  .elda-link{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--a-dark);transition:color .2s}
+  .elda-link:hover{color:var(--a-teal)}
+  .elda-link svg{font-size:14px}
+  .elda-book{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:14px;font-weight:600;color:#fff!important;background:var(--a-teal);border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.1);transition:background .2s,box-shadow .2s;white-space:nowrap}
+  .elda-book svg{font-size:16px}
+  .elda-book:hover{background:var(--a-teal-hover);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+  .elda-book:active{background:var(--a-teal-active)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1023px){
+    .elda h2{font-size:40px}
+  }
+  @media (max-width:860px){
+    .elda-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .elda{padding:64px 0 56px}
+    .elda-inner{padding:0 16px}
+    .elda h2{font-size:32px}
+    .elda-specs{grid-template-columns:1fr 1fr}
+    .elda-actions{flex-direction:column;align-items:stretch}
+    .elda-book{justify-content:center}
+    .elda-link{justify-content:center}
+  }
+
+  .elda button.elda-link{background:none;border:0;padding:0;cursor:pointer;font-family:inherit;text-align:left}
+  .elda-full[hidden]{display:none}
+
+  /* ---------- Modal "Ver descripción completa" (se mueve a <body>, por eso no va anidado) ---------- */
+  .eldam{display:none;position:fixed;inset:0;z-index:100000;background:rgba(10,54,65,.78);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;font-family:"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .eldam.is-open{display:flex;animation:eldamFade .2s ease-out}
+  @keyframes eldamFade{from{opacity:0}to{opacity:1}}
+  .eldam *,.eldam *::before,.eldam *::after{box-sizing:border-box}
+  .eldam-box{position:relative;background:#fff;border-radius:20px;width:100%;max-width:860px;max-height:92vh;overflow:auto;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+  .eldam-img{position:relative;background:#0a3641;height:min(64vh,520px);overflow:hidden;touch-action:pan-y}
+  .eldam-track{display:flex;height:100%;transition:transform .45s ease;will-change:transform}
+  .eldam-track img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;display:block;-webkit-user-drag:none;user-select:none}
+  .eldam-x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#0a3641;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .eldam-x:hover{background:#fff}
+  .eldam svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .eldam-body{padding:28px 32px 32px}
+  .eldam-body h3{margin:0 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:30px;line-height:1.2;font-weight:400;color:#0a3641}
+  .eldam-content p{margin:0 0 12px;font-size:15px;line-height:1.75;color:#475569}
+  .eldam-content p.lead{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:20px;line-height:1.4;color:#00a2b4;margin-bottom:16px}
+  .eldam-content p.closing{font-weight:700;color:#0a3641;margin-top:18px}
+  .eldam-content ul.feat{list-style:none;margin:20px 0 0;padding:20px 0 0;border-top:1px solid #e2e8f0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 24px}
+  .eldam-content ul.feat li{position:relative;padding-left:26px;font-size:14px;font-weight:600;color:#0a3641}
+  .eldam-content ul.feat li::before{content:"\2713";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:#e6f7f8;color:#00a2b4;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .eldam-actions{display:flex;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .eldam-book{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;font-size:14px;font-weight:600;color:#fff!important;background:#00a2b4;border-radius:10px;text-decoration:none;transition:background .2s}
+  .eldam-book:hover{background:#008998}
+  .eldam-close{padding:12px 18px;font:inherit;font-size:14px;font-weight:600;color:#475569;background:#f1f5f9;border:0;border-radius:10px;cursor:pointer}
+  .eldam-close:hover{background:#e2e8f0}
+  @media (max-width:640px){
+    .eldam-body{padding:22px 20px 24px}
+    .eldam-body h3{font-size:24px}
+    .eldam-content ul.feat{grid-template-columns:1fr}
+    .eldam-img{height:min(46vh,320px)}
+  }
+
+  /* Refuerzo: el tema de WordPress/Elementor pinta los <button> de azul. Esto lo anula solo dentro del popup. */
+  .eldam .eldam-x{position:absolute!important;top:14px!important;right:14px!important;width:40px!important;height:40px!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.95)!important;color:#0a3641!important;box-shadow:0 2px 8px rgba(0,0,0,.25)!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;text-transform:none!important}
+  .eldam .eldam-x:hover,.eldam .eldam-x:focus{background:#fff!important;color:#0a3641!important}
+  .eldam .eldam-x svg{width:20px!important;height:20px!important;stroke:currentColor!important;fill:none!important}
+  .eldam .eldam-close{background:#f1f5f9!important;color:#475569!important;border:0!important;border-radius:10px!important;padding:12px 18px!important;box-shadow:none!important;line-height:1.2!important;text-transform:none!important}
+  .eldam .eldam-close:hover,.eldam .eldam-close:focus{background:#e2e8f0!important;color:#475569!important}
+  .eldam .eldam-book{background:#00a2b4!important;color:#fff!important;border:0!important;border-radius:10px!important}
+  .eldam .eldam-book:hover{background:#008998!important}
+
+  /* ---------- Anti-tema: el modal se mueve a <body>, así que el tema de WordPress/Elementor
+     le aplicaba su estilo de botón (azul). Estas reglas fuerzan los nuestros. ---------- */
+  .eldam button{-webkit-appearance:none;appearance:none;font-family:inherit;text-transform:none;letter-spacing:normal;margin:0;text-shadow:none}
+  .eldam .eldam-x{position:absolute!important;top:14px!important;right:14px!important;width:40px!important;height:40px!important;min-width:0!important;min-height:0!important;padding:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.95)!important;color:#0a3641!important;display:flex!important;align-items:center;justify-content:center;line-height:1!important;box-shadow:0 2px 8px rgba(0,0,0,.25)!important;cursor:pointer}
+  .eldam .eldam-x:hover,.eldam .eldam-x:focus,.eldam .eldam-x:active{background:#fff!important;color:#00a2b4!important;outline:0}
+  .eldam .eldam-x:focus-visible{outline:2px solid #00a2b4!important;outline-offset:2px}
+  .eldam .eldam-x svg{width:20px!important;height:20px!important;stroke:currentColor!important;fill:none!important}
+  .eldam .eldam-close{padding:12px 18px!important;min-width:0!important;min-height:0!important;border:0!important;border-radius:10px!important;background:#f1f5f9!important;color:#475569!important;font-size:14px!important;font-weight:600!important;line-height:1.2!important;box-shadow:none!important;cursor:pointer}
+  .eldam .eldam-close:hover,.eldam .eldam-close:focus{background:#e2e8f0!important;color:#0a3641!important}
+  .eldam .eldam-book{background:#00a2b4!important;color:#fff!important;text-decoration:none!important}
+  .eldam .eldam-book:hover,.eldam .eldam-book:focus{background:#008998!important;color:#fff!important}
+
+  /* ---------- Slider de fotos del popup ---------- */
+  .eldam-count{position:absolute;top:14px;left:14px;z-index:3;background:rgba(10,54,65,.78);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+  .eldam-dots{position:absolute;left:0;right:0;bottom:12px;z-index:3;display:flex;justify-content:center;gap:8px}
+  .eldam .eldam-nav{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;z-index:3;width:42px!important;height:42px!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.92)!important;color:#0a3641!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;box-shadow:0 2px 8px rgba(0,0,0,.28)!important;cursor:pointer}
+  .eldam .eldam-prev{left:12px!important}
+  .eldam .eldam-next{right:12px!important}
+  .eldam .eldam-nav:hover,.eldam .eldam-nav:focus{background:#fff!important;color:#00a2b4!important;outline:0}
+  .eldam .eldam-nav svg{width:20px!important;height:20px!important;stroke:currentColor!important;fill:none!important}
+  .eldam .eldam-dot{width:9px!important;height:9px!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:rgba(255,255,255,.55)!important;box-shadow:none!important;cursor:pointer;transition:transform .2s,background .2s}
+  .eldam .eldam-dot.is-active{background:#fff!important;transform:scale(1.3)}
+  .eldam.eldam-single .eldam-nav,.eldam.eldam-single .eldam-dots,.eldam.eldam-single .eldam-count{display:none!important}
+  @media (max-width:640px){
+    .eldam .eldam-nav{width:36px!important;height:36px!important}
+    .eldam .eldam-prev{left:8px!important}
+    .eldam .eldam-next{right:8px!important}
+  }
+  @media (prefers-reduced-motion:reduce){ .eldam-track{transition:none} }
+  /* Fix: "Ver descripción completa" button - theme ke focus/hover/active style ko override */
+.elda button.elda-link,
+.elda button.elda-link:hover,
+.elda button.elda-link:focus,
+.elda button.elda-link:focus-visible,
+.elda button.elda-link:active{
+  background:none!important;
+  background-color:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  outline:0;
+  color:#0a3641!important;
+  text-shadow:none!important;
+  text-transform:none!important;
+  letter-spacing:normal!important;
+}
+.elda button.elda-link:hover,
+.elda button.elda-link:focus{
+  color:#00a2b4!important;
+}
+.elda button.elda-link:focus-visible{
+  outline:2px solid #00a2b4;
+  outline-offset:3px;
+  border-radius:4px;
+}
+.elda button.elda-link span,
+.elda button.elda-link svg{
+  color:inherit!important;
+}
+</style>
+
+<section class="elda" id="apartments">
+
+  <!-- Iconos -->
+  <svg class="elda-sprite" aria-hidden="true">
+    <symbol id="elda-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="elda-size" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+    <symbol id="elda-wifi" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></symbol>
+    <symbol id="elda-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="elda-bed" viewBox="0 0 24 24"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></symbol>
+    <symbol id="elda-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="elda-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  </svg>
+
+  <div class="elda-inner">
+
+    <!-- Cabecera y filtros -->
+    <div class="elda-head">
+      <div>
+        <span class="elda-eyebrow">NUESTROS ALOJAMIENTOS · PLAYA DE FENALS</span>
+        <h2>Encuentra tu lugar cerca del mar</h2>
+        <p class="elda-intro">Descubre nuestros apartamentos en Lloret de Mar, con espacios acogedores, el Mediterráneo cerca y todo lo que necesitas para disfrutar de tu estancia.</p>
+      </div>
+      <div class="elda-tabs" role="tablist" aria-label="Filtrar apartamentos">
+        <button type="button" class="elda-tab is-active" data-filter="all">Todos los apartamentos</button>
+        <button type="button" class="elda-tab" data-filter="standard">Estándar</button>
+        <button type="button" class="elda-tab" data-filter="premium">Premium</button>
+      </div>
+    </div>
+
+    <div class="elda-grid">
+
+      <!-- 1. Estándar con cama de matrimonio -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/9M0A3385_6_11zon.jpg|/wp-content/uploads/2026/11/9M0A3379_5_11zon.jpg|/wp-content/uploads/2026/11/9M0A3261.jpg|/wp-content/uploads/2026/11/9M0A3268_5_11zon.jpg|/wp-content/uploads/2026/11/9M0A3313_1_11zon.jpg|/wp-content/uploads/2026/11/9M0A3304_9_11zon.jpg|/wp-content/uploads/2026/11/9M0A3316_2_11zon.jpg|/wp-content/uploads/2026/11/9M0A3275_6_11zon.jpg|/wp-content/uploads/2026/11/9M0A3376_4_11zon-1.jpg|/wp-content/uploads/2026/11/9M0A3361_3_11zon-1.jpg|/wp-content/uploads/2026/11/9M0A2983-1.jpg" data-type="standard">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-9.55.37-PM.jpeg" alt="Apartamento Estándar con cama de matrimonio" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Estándar</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Estándar · Hasta 4 huéspedes</div>
+            <h3>Estándar con cama de matrimonio</h3>
+            <p class="elda-desc">Este acogedor apartamento, con capacidad para hasta cuatro personas, es ideal para disfrutar de unos días de descanso en Lloret de Mar. Dispone de un dormitorio con una cómoda cama de matrimonio y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte el mejor descanso durante tus vacaciones.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>4</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>51</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">¡Tus vacaciones junto al Mediterráneo empiezan aquí!</p>
+              <p>Este acogedor apartamento, con capacidad para hasta cuatro personas, es ideal para disfrutar de unos días de descanso en Lloret de Mar. Dispone de un dormitorio con una cómoda cama de matrimonio y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte el mejor descanso durante tus vacaciones.</p>
+              <p>Para que te sientas como en casa, cuenta con aire acondicionado, televisor inteligente y wifi de fibra óptica con rúter individual, que te garantiza una conexión rápida y estable durante toda tu estancia.</p>
+              <p>La cocina está totalmente equipada con todo lo necesario para preparar tus desayunos, comidas y cenas, incluyendo horno, microondas, nevera y menaje.</p>
+              <p>El baño, completamente renovado, dispone de bañera y secador de pelo.</p>
+              <p>Su amplia terraza es el rincón perfecto para disfrutar de un desayuno al aire libre, compartir una comida o relajarte después de un día de playa.</p>
+              <p>Además, tendrás a tu disposición una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>Y lo mejor: la playa está a tan solo 150 metros. Disfruta del sol, del Mediterráneo y de todo lo que Lloret de Mar puede ofrecerte, con la comodidad de tenerlo todo cerca.</p>
+              <p class="closing">Apartamentos Eldorado: tu espacio para disfrutar del Mediterráneo.</p>
+              <ul class="feat"><li>Hasta 4 huéspedes</li><li>51 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=std-matrimonio"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Estándar con camas individuales -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/9M0A3343_10_11zon.jpg|/wp-content/uploads/2026/11/9M0A3346_1_11zon.jpg|/wp-content/uploads/2026/11/9M0A3349_2_11zon.jpg|/wp-content/uploads/2026/11/9M0A3261.jpg|/wp-content/uploads/2026/11/9M0A3304_7_11zon.jpg|/wp-content/uploads/2026/11/9M0A3313_8_11zon.jpg|/wp-content/uploads/2026/11/9M0A3268_5_11zon.jpg|/wp-content/uploads/2026/11/9M0A3316_9_11zon.jpg|/wp-content/uploads/2026/11/9M0A3275_6_11zon.jpg|/wp-content/uploads/2026/11/9M0A3361_3_11zon.jpg|/wp-content/uploads/2026/11/9M0A3376_4_11zon.jpg|/wp-content/uploads/2026/11/9M0A2983-1.jpg" data-type="standard">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-10.29.59-PM.jpeg" alt="Apartamento Estándar con camas individuales" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Estándar</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Estándar · Hasta 4 huéspedes</div>
+            <h3>Estándar con camas individuales</h3>
+            <p class="elda-desc">Este apartamento, con capacidad para hasta cuatro personas, es perfecto para disfrutar de una estancia cómoda y relajada en Lloret de Mar. Dispone de un dormitorio con dos camas individuales y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte un descanso aún más confortable.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>4</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>51</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">¡Disfruta de tus vacaciones junto al Mediterráneo!</p>
+              <p>Este apartamento, con capacidad para hasta cuatro personas, es perfecto para disfrutar de una estancia cómoda y relajada en Lloret de Mar. Dispone de un dormitorio con dos camas individuales y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte un descanso aún más confortable.</p>
+              <p>El apartamento cuenta con aire acondicionado, televisor inteligente y wifi de fibra óptica con rúter individual, para que disfrutes de una conexión rápida y estable durante toda tu estancia.</p>
+              <p>La cocina está equipada con todo lo necesario para sentirte como en casa, incluyendo horno, microondas, nevera y menaje.</p>
+              <p>El baño, completamente renovado, dispone de bañera y secador de pelo.</p>
+              <p>Su amplia terraza te permitirá disfrutar de agradables desayunos, comidas al aire libre o momentos de relax después de un día de playa.</p>
+              <p>Además, tendrás a tu disposición una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>Y lo mejor: la playa está a tan solo 150 metros. Disfruta del sol, del Mediterráneo y de todo lo que Lloret de Mar puede ofrecerte, con la comodidad de tenerlo todo cerca.</p>
+              <p class="closing">Apartamentos Eldorado: tu espacio para disfrutar del Mediterráneo.</p>
+              <ul class="feat"><li>Hasta 4 huéspedes</li><li>51 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=std-twin"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Estándar para dos -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/9M0A3173_1_11zon.jpg|/wp-content/uploads/2026/11/9M0A3216_2_11zon.jpg|/wp-content/uploads/2026/11/9M0A3131_6_11zon.jpg|/wp-content/uploads/2026/11/9M0A3116.jpg|/wp-content/uploads/2026/11/9M0A3145_7_11zon.jpg|/wp-content/uploads/2026/11/9M0A3124_5_11zon.jpg|/wp-content/uploads/2026/11/9M0A3225_4_11zon.jpg|/wp-content/uploads/2026/11/9M0A3222_3_11zon.jpg|/wp-content/uploads/2026/11/9M0A2983.jpg" data-type="standard">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-9.57.19-PM.jpeg" alt="Apartamento Estándar para dos" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Estándar</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Estándar · Hasta 2 huéspedes</div>
+            <h3>Estándar para dos</h3>
+            <p class="elda-desc">Pensado especialmente para dos adultos, este acogedor apartamento es ideal para parejas que desean disfrutar de unos días de descanso en Lloret de Mar. Dispone de un dormitorio con una cómoda cama de matrimonio, creando un espacio agradable para relajarse y desconectar.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>2</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>38</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">¡El lugar perfecto para disfrutar de una escapada junto al Mediterráneo!</p>
+              <p>Pensado especialmente para dos adultos, este acogedor apartamento es ideal para parejas que desean disfrutar de unos días de descanso en Lloret de Mar. Dispone de un dormitorio con una cómoda cama de matrimonio, creando un espacio agradable para relajarse y desconectar.</p>
+              <p>Para garantizar tu comodidad, cuenta con aire acondicionado, televisor inteligente y wifi de fibra óptica con rúter individual, que te ofrece una conexión rápida y estable durante toda tu estancia.</p>
+              <p>Su cocina, completamente renovada y de diseño moderno, está equipada con todo lo necesario para preparar tus desayunos, comidas y cenas, incluyendo horno, microondas, nevera y menaje.</p>
+              <p>El baño dispone de cuatro piezas, bañera y secador de pelo.</p>
+              <p>También podrás disfrutar de una amplia terraza, perfecta para desayunar tranquilamente, compartir una comida al aire libre o simplemente relajarte después de un día junto al mar.</p>
+              <p>Además, tendrás a tu disposición una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>A tan solo 150 metros de la playa, podrás disfrutar del Mediterráneo y de todo lo que Lloret de Mar tiene para ofrecer.</p>
+              <p>¿Viajas con un niño o necesitas más espacio? Te recomendamos nuestros apartamentos con camas individuales o con cama de matrimonio, con capacidad para hasta cuatro personas.</p>
+              <p class="closing">Apartamentos Eldorado: todo lo que necesitas para disfrutar de una escapada junto al mar.</p>
+              <ul class="feat"><li>Hasta 2 huéspedes</li><li>38 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=std-para-dos"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Premium con cama de matrimonio -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/Dormitorio-moderno-en-verde-celadn-500kb.jpeg|/wp-content/uploads/2026/11/Dormitorio-moderno-en-verde-celadn_2-500kb.jpeg|/wp-content/uploads/2026/11/Dormitorio-minimalista-con-acentos-celadn-500kb.jpeg|/wp-content/uploads/2026/11/Interior-moderno-en-verde-celadn-y-mostaza-500kb.jpeg|/wp-content/uploads/2026/11/Saln-escandinavo-con-luz-natural-500kb.jpeg|/wp-content/uploads/2026/11/foto_cocina_mejorada-500kb.jpeg|/wp-content/uploads/2026/11/Cocina-nrdica-con-comedor-amarillo-500kb.jpeg|/wp-content/uploads/2026/11/Cocina-abierta-con-detalles-verde-celadn-500kb.jpeg|/wp-content/uploads/2026/11/9M0A2996.jpg|/wp-content/uploads/2026/11/Bano-minimalista-con-toques-turquesa.png|/wp-content/uploads/2026/11/9M0A2983.jpg" data-type="premium">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-9.59.08-PM.jpeg" alt="Apartamento Premium con cama de matrimonio" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Premium</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Premium · Hasta 4 huéspedes</div>
+            <h3>Premium con cama de matrimonio</h3>
+            <p class="elda-desc">Totalmente renovado, este apartamento Premium ofrece capacidad para hasta cuatro personas y combina diseño contemporáneo, funcionalidad y comodidad. Dispone de un dormitorio con una confortable cama de matrimonio y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte un descanso confortable durante tu estancia.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>4</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>51</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">Descubre nuestros apartamentos Premium y disfruta de unas vacaciones con un plus de confort junto al Mediterráneo.</p>
+              <p>Totalmente renovado, este apartamento Premium ofrece capacidad para hasta cuatro personas y combina diseño contemporáneo, funcionalidad y comodidad. Dispone de un dormitorio con una confortable cama de matrimonio y un sofá cama doble en el salón. Todas las camas son nuevas, renovadas en noviembre de 2026, para ofrecerte un descanso confortable durante tu estancia.</p>
+              <p>Para disfrutar de todas las comodidades, cuenta con aire acondicionado, televisor inteligente y wifi de alta velocidad mediante fibra óptica, con rúter individual para ofrecerte una conexión rápida y estable.</p>
+              <p>La cocina, abierta al salón y de diseño moderno, está completamente equipada con todo lo necesario para preparar tus comidas y cenas.</p>
+              <p>El baño ha sido rediseñado con un estilo actual y elegante, e incorpora una amplia ducha italiana, secador de pelo y una práctica puerta corredera.</p>
+              <p>Las nuevas ventanas de altas prestaciones mejoran el aislamiento térmico y acústico, creando un ambiente más tranquilo y agradable para disfrutar de tu descanso.</p>
+              <p>Su amplia terraza es el lugar perfecto para desayunar al aire libre, compartir una comida o relajarte después de un día de playa.</p>
+              <p>Además, tendrás a tu disposición una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>Y todo ello a tan solo 150 metros de la playa. Disfruta del Mediterráneo, de Lloret de Mar y de un apartamento completamente renovado donde cada detalle está pensado para tu bienestar.</p>
+              <p class="closing">Apartamentos Eldorado Premium: más diseño, más confort, más vacaciones.</p>
+              <ul class="feat"><li>Hasta 4 huéspedes</li><li>51 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=prem-matrimonio"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Premium con camas individuales -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/Dormitorio-sereno-con-paredes-verde-celadon_4.png|/wp-content/uploads/2026/11/Dormitorio-moderno-con-pared-verde-celadon_3.png|/wp-content/uploads/2026/11/Salon-escandinavo-con-luz-natural_7.png|/wp-content/uploads/2026/11/Interior-moderno-en-verde-celadon-y-mostaza_6.png|/wp-content/uploads/2026/11/Cocina-nordica-con-comedor-amarillo_2.png|/wp-content/uploads/2026/11/foto_cocina_mejorada_5_11zon.png|/wp-content/uploads/2026/11/Cocina-abierta-con-detalles-verde-celadon_1.png|/wp-content/uploads/2026/11/Bano-minimalista-con-toques-turquesa.png|/wp-content/uploads/2026/11/Bano-moderno-con-detalles-turquesa_8.png|/wp-content/uploads/2026/11/9M0A2983-1.jpg" data-type="premium">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-9.59.40-PM.jpeg" alt="Apartamento Premium con camas individuales" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Premium</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Premium · Hasta 4 huéspedes</div>
+            <h3>Premium con camas individuales</h3>
+            <p class="elda-desc">Nuestros apartamentos Premium con camas individuales, completamente renovados, están pensados para ofrecer una estancia cómoda y agradable a un máximo de cuatro personas. Disponen de un dormitorio con dos confortables camas individuales y un salón con sofá cama doble. Todas las camas son nuevas, renovadas en noviembre de 2026, para que disfrutes de un descanso reparador durante tus vacaciones.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>4</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>51</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">Vive una experiencia de confort y diseño a pocos pasos del Mediterráneo.</p>
+              <p>Nuestros apartamentos Premium con camas individuales, completamente renovados, están pensados para ofrecer una estancia cómoda y agradable a un máximo de cuatro personas. Disponen de un dormitorio con dos confortables camas individuales y un salón con sofá cama doble. Todas las camas son nuevas, renovadas en noviembre de 2026, para que disfrutes de un descanso reparador durante tus vacaciones.</p>
+              <p>El confort continúa con aire acondicionado, televisor inteligente y conexión wifi de alta velocidad por fibra óptica, gracias a un rúter individual que te garantiza una conexión rápida y estable.</p>
+              <p>La cocina, de concepto abierto y perfectamente integrada en el salón, presenta un diseño moderno y funcional, con todo lo necesario para preparar tus platos favoritos.</p>
+              <p>El baño, completamente rediseñado, destaca por su amplia ducha italiana, su estilo contemporáneo y sus acabados cuidados. También dispone de secador de pelo y una práctica puerta corredera.</p>
+              <p>Las nuevas ventanas de altas prestaciones proporcionan un excelente aislamiento térmico y acústico, ayudando a crear un ambiente más silencioso y confortable.</p>
+              <p>Su amplia terraza te invita a disfrutar del aire libre, desayunar tranquilamente o compartir agradables momentos durante las comidas.</p>
+              <p>Para mayor comodidad, dispondrás también de una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>¿Y la playa? A solo 150 metros. Todo está preparado para que disfrutes de Lloret de Mar, del sol y del Mediterráneo con todas las comodidades de un apartamento Premium.</p>
+              <p class="closing">Apartamentos Eldorado Premium: el placer de disfrutar de unas vacaciones con más confort.</p>
+              <ul class="feat"><li>Hasta 4 huéspedes</li><li>51 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=prem-twin"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Premium para dos -->
+      <article class="elda-card" data-gallery="/wp-content/uploads/2026/11/9M0A3066_4_11zon.jpg|/wp-content/uploads/2026/11/9M0A3005_7_11zon.jpg|/wp-content/uploads/2026/11/9M0A3015_1_11zon.jpg|/wp-content/uploads/2026/11/9M0A3104_5_11zon.jpg|/wp-content/uploads/2026/11/9M0A3000_6_11zon.jpg|/wp-content/uploads/2026/11/9M0A3027_2_11zon.jpg|/wp-content/uploads/2026/11/9M0A3041_3_11zon.jpg|/wp-content/uploads/2026/11/9M0A2996.jpg|/wp-content/uploads/2026/11/9M0A2983-1.jpg" data-type="premium">
+        <div class="elda-media">
+          <img src="/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-02-at-10.00.26-PM.jpeg" alt="Apartamento Premium para dos" loading="lazy">
+          <div class="elda-badges">
+            <span class="elda-badge elda-badge-dark">A 150 m de la playa</span>
+            <span class="elda-badge elda-badge-teal">Premium</span>
+          </div>
+          <!-- TODO: precio real -->
+          <div class="elda-price"><small>desde </small><strong>XX €</strong><small> / noche</small></div>
+        </div>
+        <div class="elda-body">
+          <div>
+            <div class="elda-tag">Premium · Hasta 2 huéspedes</div>
+            <h3>Premium para dos</h3>
+            <p class="elda-desc">Completamente renovado, este apartamento está pensado para dos adultos que buscan comodidad, tranquilidad y un espacio moderno y acogedor para disfrutar de sus vacaciones en Lloret de Mar. Dispone de un dormitorio con una confortable cama de matrimonio, ideal para descansar y desconectar.</p>
+            <div class="elda-specs">
+              <div class="elda-spec"><svg><use href="#elda-users"/></svg><span>Hasta <strong>2</strong> huéspedes</span></div>
+              <div class="elda-spec"><svg><use href="#elda-size"/></svg><span><strong>38</strong> m² de superficie</span></div>
+              <div class="elda-spec"><svg><use href="#elda-wifi"/></svg><span>Wi-Fi de alta velocidad</span></div>
+            </div>
+            <div class="elda-chips">
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Amplio balcón</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cocina completa</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Se admiten perros</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Aire acondicionado</span>
+              <span class="elda-chip"><svg><use href="#elda-check"/></svg>Cafetera Dolce Gusto</span>
+            </div>
+            <!-- Texto completo del cliente (se muestra al pulsar "Ver descripción completa") -->
+            <div class="elda-full" hidden>
+              <p class="lead">Disfruta de una escapada especial junto al Mediterráneo en nuestros apartamentos Premium.</p>
+              <p>Completamente renovado, este apartamento está pensado para dos adultos que buscan comodidad, tranquilidad y un espacio moderno y acogedor para disfrutar de sus vacaciones en Lloret de Mar. Dispone de un dormitorio con una confortable cama de matrimonio, ideal para descansar y desconectar.</p>
+              <p>Cada detalle está pensado para ofrecerte una estancia de calidad: aire acondicionado, televisor inteligente y wifi de alta velocidad mediante fibra óptica, con rúter individual para disfrutar de una conexión rápida y estable. Además, la cama es nueva, renovada en noviembre de 2026, para ofrecerte el máximo confort durante tu descanso.</p>
+              <p>La cocina, de diseño moderno y funcional, está completamente equipada con todo lo necesario para preparar tus desayunos, comidas y cenas.</p>
+              <p>El baño, completamente renovado, combina diseño actual y comodidad, y dispone de cuatro piezas y secador de pelo.</p>
+              <p>Las nuevas ventanas de altas prestaciones mejoran el aislamiento térmico y acústico, creando un ambiente más silencioso y agradable durante toda tu estancia.</p>
+              <p>Su amplia terraza es el rincón perfecto para desayunar al aire libre, disfrutar de una cena tranquila o relajarte después de un día junto al mar.</p>
+              <p>También tendrás a tu disposición una lavandería en la quinta planta, equipada con lavadora de 10 kg y secadora.</p>
+              <p>A tan solo 150 metros de la playa, podrás disfrutar del Mediterráneo y de todo lo que Lloret de Mar tiene para ofrecer, con el confort añadido de un apartamento completamente renovado.</p>
+              <p class="closing">Apartamentos Eldorado Premium: pequeños detalles, grandes momentos de vacaciones.</p>
+              <ul class="feat"><li>Hasta 2 huéspedes</li><li>38 m² de superficie</li><li>Wi-Fi de alta velocidad</li><li>Amplio balcón</li><li>Cocina completa</li><li>Se admiten perros</li><li>Aire acondicionado</li><li>Cafetera Dolce Gusto</li></ul>
+            </div>
+          </div>
+          <div class="elda-actions">
+            <button type="button" class="elda-link" data-open><span>Ver descripción completa</span><svg><use href="#elda-arrow"/></svg></button>
+            <a class="elda-book" href="/booking/?apartment=prem-para-dos"><span>Reservar esta estancia</span><svg><use href="#elda-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('apartments');
+  if (!root) return;
+  var tabs = root.querySelectorAll('.elda-tab');
+  var cards = root.querySelectorAll('.elda-card');
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var f = tab.getAttribute('data-filter');
+      tabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+      cards.forEach(function (c) {
+        c.hidden = !(f === 'all' || c.getAttribute('data-type') === f);
+      });
+    });
+  });
+})();
+
+(function () {
+  var root = document.getElementById('apartments');
+  if (!root) return;
+  var chevL = '<svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>';
+  var chevR = '<svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>';
+  var m = document.createElement('div');
+  m.className = 'eldam';
+  m.setAttribute('role', 'dialog');
+  m.setAttribute('aria-modal', 'true');
+  m.setAttribute('aria-label', 'Descripción del apartamento');
+  m.innerHTML =
+    '<div class="eldam-box">' +
+      '<button type="button" class="eldam-x" aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+      '<div class="eldam-img">' +
+        '<div class="eldam-track"></div>' +
+        '<button type="button" class="eldam-nav eldam-prev" aria-label="Foto anterior">' + chevL + '</button>' +
+        '<button type="button" class="eldam-nav eldam-next" aria-label="Foto siguiente">' + chevR + '</button>' +
+        '<div class="eldam-count"></div><div class="eldam-dots"></div>' +
+      '</div>' +
+      '<div class="eldam-body"><h3></h3><div class="eldam-content"></div>' +
+        '<div class="eldam-actions"><a class="eldam-book" href="#"><span>Reservar esta estancia</span><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '<button type="button" class="eldam-close">Cerrar</button></div></div>' +
+    '</div>';
+  document.body.appendChild(m);
+
+  var track = m.querySelector('.eldam-track');
+  var dots = m.querySelector('.eldam-dots');
+  var count = m.querySelector('.eldam-count');
+  var total = 0, idx = 0, lastFocus = null;
+
+  function go(i) {
+    if (!total) return;
+    idx = (i + total) % total;
+    track.style.transform = 'translateX(' + (-100 * idx) + '%)';
+    count.textContent = (idx + 1) + ' / ' + total;
+    Array.prototype.forEach.call(dots.children, function (d, n) { d.classList.toggle('is-active', n === idx); });
+  }
+  function build(card) {
+    var title = card.querySelector('h3').textContent;
+    var list = (card.getAttribute('data-gallery') || '').split('|').filter(Boolean);
+    if (!list.length) list = [card.querySelector('.elda-media img').getAttribute('src')];
+    total = list.length;
+    track.style.transition = 'none';
+    track.innerHTML = '';
+    dots.innerHTML = '';
+    list.forEach(function (src, n) {
+      var im = document.createElement('img');
+      im.src = src; im.alt = title + ' — foto ' + (n + 1); im.draggable = false;
+      track.appendChild(im);
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'eldam-dot'; d.setAttribute('aria-label', 'Ir a la foto ' + (n + 1));
+      d.addEventListener('click', function () { go(n); });
+      dots.appendChild(d);
+    });
+    m.classList.toggle('eldam-single', total < 2);
+    go(0);
+    void track.offsetWidth;            // re-enable the slide animation after the reset
+    track.style.transition = '';
+  }
+  function open(card) {
+    build(card);
+    m.querySelector('h3').textContent = card.querySelector('h3').textContent;
+    m.querySelector('.eldam-content').innerHTML = card.querySelector('.elda-full').innerHTML;
+    m.querySelector('.eldam-book').href = card.querySelector('.elda-book').getAttribute('href');
+    lastFocus = document.activeElement;
+    m.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    m.querySelector('.eldam-box').scrollTop = 0;
+    m.querySelector('.eldam-x').focus();
+  }
+  function close() {
+    m.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  root.querySelectorAll('[data-open]').forEach(function (b) {
+    b.addEventListener('click', function () { open(b.closest('.elda-card')); });
+  });
+  m.querySelector('.eldam-x').addEventListener('click', close);
+  m.querySelector('.eldam-close').addEventListener('click', close);
+  m.querySelector('.eldam-prev').addEventListener('click', function () { go(idx - 1); });
+  m.querySelector('.eldam-next').addEventListener('click', function () { go(idx + 1); });
+  m.addEventListener('click', function (e) { if (e.target === m) close(); });
+
+  // Swipe on touch screens
+  var sx = null;
+  track.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  document.addEventListener('keydown', function (e) {
+    if (!m.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') go(idx - 1);
+    else if (e.key === 'ArrowRight') go(idx + 1);
+  });
+})();
+</script>

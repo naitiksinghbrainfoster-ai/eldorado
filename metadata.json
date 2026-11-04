@@ -1,0 +1,6 @@
+{
+  "name": "Eldorado Apartments | Fenals Beach, Lloret de Mar",
+  "description": "Boutique Mediterranean holiday apartments in Lloret de Mar, Costa Brava. Just 150m from Fenals Beach with sea views, private terraces, and modern comfort.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,172 @@
+<!-- ELDORADO FOOTER (ES) — pegar en un bloque "HTML personalizado" de WordPress -->
+<style>
+  .eldf{
+    --f-bg:#0a3641;
+    --f-card:#0e4350;
+    --f-teal:#00a2b4;
+    --f-teal-hover:#008998;
+    --f-teal-active:#077986;
+    --f-cyan:#5be5f3;
+    --f-muted:#cbd5e1;
+    --f-dim:#94a3b8;
+    font-family:"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--f-bg);
+    color:#fff;
+    border-top:1px solid rgba(0,162,180,.3);
+    padding:80px 0 48px;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .eldf *,.eldf *::before,.eldf *::after{box-sizing:border-box}
+  .eldf a{text-decoration:none;color:inherit}
+  .eldf ul{list-style:none;margin:0;padding:0}
+  .eldf h3,.eldf h4,.eldf p{margin:0}
+  .eldf svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .eldf-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+
+  /* ---------- Offer bar ---------- */
+  .eldf-offer{background:var(--f-card);border:1px solid rgba(0,162,180,.2);border-radius:24px;padding:40px;margin-bottom:64px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+  .eldf-offer-text{max-width:600px}
+  .eldf-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--f-cyan);margin-bottom:6px}
+  .eldf-offer h3{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.2;font-weight:700;color:#fff}
+  .eldf-offer-btns{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .eldf-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:0;color:#fff;font-family:inherit;transition:background .2s,box-shadow .2s;white-space:nowrap}
+  .eldf-btn svg{font-size:18px}
+  .eldf-btn-primary{background:var(--f-teal);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .eldf-btn-primary:hover{background:var(--f-teal-hover)}
+  .eldf-btn-primary:active{background:var(--f-teal-active)}
+  .eldf-btn-ghost{background:rgba(255,255,255,.1);font-weight:600}
+  .eldf-btn-ghost svg{color:var(--f-cyan)}
+  .eldf-btn-ghost:hover{background:rgba(255,255,255,.2)}
+
+  /* ---------- Columns ---------- */
+  .eldf-cols{display:grid;grid-template-columns:4fr 2fr 3fr 3fr;gap:40px;padding-bottom:64px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .eldf-brand{display:flex;flex-direction:column;align-items:flex-start}
+  .eldf-logo-box{display:inline-block;margin-bottom:18px}
+  .eldf-logo-box img{display:block;height:110px;width:auto;max-width:100%}
+  .eldf-about{font-size:16px;line-height:1.75;color:var(--f-muted);margin-bottom:24px;max-width:460px}
+  .eldf-reg{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--f-dim)}
+
+  .eldf h4{font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--f-cyan);margin-bottom:20px}
+  .eldf-links li{margin-bottom:12px;font-size:14.5px;color:var(--f-muted);line-height:1.4}
+  .eldf-links a{transition:color .2s}
+  .eldf-links a:hover{color:#fff}
+  .eldf-links strong{font-weight:700;color:#fff;transition:color .2s}
+  .eldf-links a:hover strong{color:var(--f-cyan)}
+
+  .eldf-contact li{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:14.5px;color:var(--f-muted);line-height:1.45}
+  .eldf-contact svg{color:var(--f-teal);font-size:18px;margin-top:1px}
+  .eldf-contact a,.eldf-contact button{color:inherit;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;transition:color .2s}
+  .eldf-contact a:hover,.eldf-contact button:hover{color:var(--f-cyan)}
+
+  /* ---------- Bottom bar ---------- */
+  .eldf-bottom{padding-top:32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--f-dim)}
+  .eldf-legal{display:flex;gap:24px;flex-wrap:wrap}
+  .eldf-legal a{transition:color .2s}
+  .eldf-legal a:hover{color:#fff}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1024px){
+    .eldf-cols{grid-template-columns:1fr 1fr}
+    .eldf-brand{grid-column:1 / -1}
+  }
+  @media (max-width:640px){
+    .eldf{padding:56px 0 32px}
+    .eldf-inner{padding:0 16px}
+    .eldf-offer{padding:24px;margin-bottom:40px}
+    .eldf-offer h3{font-size:26px}
+    .eldf-cols{grid-template-columns:1fr;padding-bottom:40px}
+    .eldf-bottom{flex-direction:column;align-items:flex-start}
+  }
+</style>
+
+<footer class="eldf" id="contact">
+  <div class="eldf-inner">
+
+    <!-- Barra de oferta -->
+    <div class="eldf-offer">
+      <div class="eldf-offer-text">
+        <span class="eldf-eyebrow">Ofertas exclusivas de verano 2027</span>
+        <h3>Reserva directamente con Eldorado y obtén el mejor precio del mercado garantizado.</h3>
+      </div>
+      <div class="eldf-offer-btns">
+        <a href="#book" class="eldf-btn eldf-btn-primary">
+          <span>Reserva directa online</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/34655725139" target="_blank" rel="noopener" class="eldf-btn eldf-btn-ghost">
+          <svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          <span>Consultar por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Columnas -->
+    <div class="eldf-cols">
+
+      <div class="eldf-brand">
+        <div class="eldf-logo-box">
+          <img src="https://eldoradowp.brainfostertest.com/wp-content/uploads/2026/10/Eldorado-Apartments-White-Logo.png" alt="Eldorado Apartments" loading="lazy">
+        </div>
+        <p class="eldf-about">Apartamentos turísticos en Lloret de Mar, Costa Brava. A solo 150 m de la playa de Fenals, con tranquilas terrazas cerca del mar, un diseño moderno y auténtica hospitalidad mediterránea.</p>
+        <div class="eldf-reg">Registro de Turismo: HUTG-012847-82</div>
+      </div>
+
+      <div>
+        <h4>Explorar</h4>
+        <ul class="eldf-links">
+          <li><a href="#apartments">Apartamentos y suites</a></li>
+          <li><a href="#experience">La experiencia</a></li>
+          <li><a href="#location">Guía de la playa de Fenals</a></li>
+          <li><a href="#gallery">Galería de fotos</a></li>
+          <li><a href="#contact">Cómo llegar y aparcamiento</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Alojamientos</h4>
+        <ul class="eldf-links">
+          <li><a href="/alojamientos/standard-cama-de-matrimonio/"><strong>Standard cama de matrimonio</strong> (51 m² · 4 huéspedes)</a></li>
+          <li><a href="/alojamientos/standard-camas-individuales/"><strong>Standard camas individuales</strong> (51 m² · 4 huéspedes)</a></li>
+          <li><a href="/alojamientos/standard-para-dos/"><strong>Standard para dos</strong> (38 m² · 2 huéspedes)</a></li>
+          <li><a href="/alojamientos/premium-cama-de-matrimonio/"><strong>Premium cama de matrimonio</strong> (51 m² · 4 huéspedes)</a></li>
+          <li><a href="/alojamientos/premium-camas-individuales/"><strong>Premium camas individuales</strong> (51 m² · 4 huéspedes)</a></li>
+          <li><a href="/alojamientos/premium-para-dos/"><strong>Premium para dos</strong> (38 m² · 2 huéspedes)</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contacto y ubicación</h4>
+        <ul class="eldf-contact">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Calle Antillas, 5-17310 -LLORET DE MAR </span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+            <a href="tel:+34655725139">+34 655 72 51 39</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            <a href="https://wa.me/34655725139" target="_blank" rel="noopener">Atención por WhatsApp (24/7)</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <a href="mailto:info@eldorado-lloret.com">info@eldorado-lloret.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Barra inferior -->
+    <div class="eldf-bottom">
+      <div>© 2026 Eldorado Apartments. Todos los derechos reservados.</div>
+      <div class="eldf-legal">
+        <a href="/condiciones-de-reserva/">Condiciones de reserva</a>
+        <a href="/politica-de-privacidad/">Política de privacidad</a>
+        <a href="/politica-de-cancelacion/">Política de cancelación</a>
+        <a href="/cookies/">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
